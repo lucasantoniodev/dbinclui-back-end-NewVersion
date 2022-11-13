@@ -21,8 +21,8 @@ export const digitalSchemaSettings ={
     filePaths: [
         {
             type: {
-                filePath: String,
-                publicId: String,
+                path: String,
+                filename: String,
             },
             required: true,
         },

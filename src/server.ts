@@ -1,3 +1,4 @@
+import "./configs/env.js"
 import { App } from "./App.js";
 import { MongoDB } from "./database/MongoConnect.js";
 

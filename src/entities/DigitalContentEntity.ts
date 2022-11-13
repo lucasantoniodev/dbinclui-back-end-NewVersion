@@ -2,9 +2,9 @@ import { ObjectId } from 'mongoose';
 import { CategoryEntity } from './CategoryEntity.js';
 import { GuideEntity } from './GuideEntity.js';
 
-interface FilePaths {
-    filePath: string;
-    publicId: string;
+export interface FileProps {
+    path: string;
+    filename: string;
 }
 
 export interface DigitalContentEntity {
@@ -13,5 +13,5 @@ export interface DigitalContentEntity {
     shortDescription: string;
     category?: CategoryEntity;
     guide: GuideEntity;
-    filePaths: FilePaths[];
+    filePaths: FileProps[];
 }
