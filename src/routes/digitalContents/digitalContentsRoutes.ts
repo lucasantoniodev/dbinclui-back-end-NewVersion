@@ -9,6 +9,8 @@ import { Cloudinary } from "../../database/Cloudinary.js";
 import { deleteCategoryController } from "../../controllers/categories/DeleteCategoryController.js";
 import { deleteContentRequestMiddleware } from "../../middlewares/digitalContents/deleteContentRequestMiddleware.js";
 import { deleteDigitalContentController } from "../../controllers/digitalContents/DeleteDigitaContentController.js";
+import { getAllCategoriesController } from "../../controllers/categories/GetAllCategoriesController.js";
+import { getAllDigitalContentsController } from "../../controllers/digitalContents/GetAllDigitalContentsController.js";
 
 const digitalContentsRouter = Router();
 
@@ -20,6 +22,8 @@ digitalContentsRouter.post(
   digitalContentRequestMiddleware,
   createDigitalContentController.handler
 );
+
+digitalContentsRouter.get("/", getAllDigitalContentsController.handler);
 
 digitalContentsRouter.delete(
   "/:id",
