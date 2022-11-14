@@ -12,10 +12,8 @@ export class UpdateGuideService {
         return new Error("Guide does not exists");
       }
 
-      guide.title = guide.title ?? guide.title;
-      guide.content = guide.content ?? guide.content;
-
-      const result = await this.repository.update(guide);
+      guideRequest._id = guide._id;
+      const result = await this.repository.update(guideRequest);
 
       return result;
     } catch (error) {
