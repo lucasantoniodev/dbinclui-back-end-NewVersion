@@ -3,7 +3,7 @@ import { createCategoryController } from "../../controllers/categories/CreateCat
 import { deleteCategoryController } from "../../controllers/categories/DeleteCategoryController.js";
 import { getAllCategoriesController } from "../../controllers/categories/GetAllCategoriesController.js";
 import { getByGuideIdCategoryController } from "../../controllers/categories/GetByGuideIdCategoryController.js";
-import { getByIdController } from "../../controllers/categories/GetByIdCategoryController.js";
+import { getByIdCategoryController } from "../../controllers/categories/GetByIdCategoryController.js";
 import { updateCategoryController } from "../../controllers/categories/UpdateCategoryController.js";
 import { categoryRequestMiddleware } from "../../middlewares/categories/categoryRequestMiddleware.js";
 import { categoryRequestValidator } from "../../middlewares/categories/categoryRequestValidator.js";
@@ -30,7 +30,7 @@ categoriesRouter.get(
   "/:id",
   categoryRequestValidator("get"),
   categoryRequestMiddleware,
-  getByIdController.handler
+  getByIdCategoryController.handler
 );
 
 categoriesRouter.get(

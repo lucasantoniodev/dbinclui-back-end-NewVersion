@@ -7,7 +7,7 @@ import {
 } from "../../responses/appResponses.js";
 import { GetByIdCategoryService } from "../../services/categories/GetByIdCategoryService.js";
 
-class GetByIdController {
+class GetByIdCategoryController {
   async handler(req: Request, res: Response) {
     try {
       const id = req.params["id"];
@@ -27,4 +27,4 @@ class GetByIdController {
     }
   }
 }
-export const getByIdController = new GetByIdController();
+export const getByIdCategoryController = new GetByIdCategoryController();

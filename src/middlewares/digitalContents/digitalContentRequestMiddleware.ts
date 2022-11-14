@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { getByIdController } from "../../controllers/categories/GetByIdCategoryController.js";
+import { getByIdCategoryController } from "../../controllers/categories/GetByIdCategoryController.js";
 import { CategoryMongoRepository } from "../../repositories/mongoRepositories/CategoryMongoRepository.js";
 import { GuideMongoRepository } from "../../repositories/mongoRepositories/GuideMongoRepository.js";
 import { clientErrorResponse } from "../../responses/appResponses.js";
