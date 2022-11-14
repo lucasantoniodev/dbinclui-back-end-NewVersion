@@ -11,9 +11,9 @@ export class DeleteDigitalContentService {
         return new Error("Digital Content with this ID does not exists");
       }
 
-      const result = await this.repository.delete(id);
+      await this.repository.delete(id);
 
-      return result;
+      return content;
     } catch (error) {
       throw new Error(error as string);
     }

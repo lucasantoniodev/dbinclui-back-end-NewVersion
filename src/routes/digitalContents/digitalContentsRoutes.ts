@@ -6,6 +6,9 @@ import { digitalContentRequestMiddleware } from "../../middlewares/digitalConten
 import { digitalContentRequestValidator } from "../../middlewares/digitalContents/digitalContentRequestValidator.js";
 import { v2 as cloudinary } from "cloudinary";
 import { Cloudinary } from "../../database/Cloudinary.js";
+import { deleteCategoryController } from "../../controllers/categories/DeleteCategoryController.js";
+import { deleteContentRequestMiddleware } from "../../middlewares/digitalContents/deleteContentRequestMiddleware.js";
+import { deleteDigitalContentController } from "../../controllers/digitalContents/DeleteDigitaContentController.js";
 
 const digitalContentsRouter = Router();
 
@@ -16,6 +19,13 @@ digitalContentsRouter.post(
   digitalContentRequestValidator("post"),
   digitalContentRequestMiddleware,
   createDigitalContentController.handler
+);
+
+digitalContentsRouter.delete(
+  "/:id",
+  digitalContentRequestValidator("delete"),
+  deleteContentRequestMiddleware,
+  deleteDigitalContentController.handler
 );
 
 export { digitalContentsRouter };

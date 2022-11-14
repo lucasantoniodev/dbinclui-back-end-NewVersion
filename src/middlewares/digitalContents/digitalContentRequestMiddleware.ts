@@ -5,9 +5,9 @@ import { GuideMongoRepository } from "../../repositories/mongoRepositories/Guide
 import { clientErrorResponse } from "../../responses/appResponses.js";
 import { GetByIdCategoryService } from "../../services/categories/GetByIdCategoryService.js";
 import { GetByIdGuideService } from "../../services/guides/GetByIdGuideService.js";
-import { v2 as cloudinary } from "cloudinary";
+import { deleteContentCloudinary } from "../../utils/cloudinary/deleteContentCloudinary.js";
 
-interface FileRequest {
+export interface FileRequest {
   fieldname: string;
   originalname: string;
   encoding: string;
@@ -17,15 +17,6 @@ interface FileRequest {
   filename: string;
 }
 
-const deleteImg = async (images: FileRequest[]) => {
-  const paths: string[] = [];
-  for (let img of images) {
-    paths.push(img.filename);
-  }
-
-  await cloudinary.api.delete_resources(paths);
-};
-
 export const digitalContentRequestMiddleware = async (
   req: Request,
   res: Response,
@@ -34,9 +25,9 @@ export const digitalContentRequestMiddleware = async (
   const files = req.files as FileRequest[];
 
   const errors = validationResult(req);
-  
+
   if (!errors.isEmpty()) {
-    deleteImg(files);
+    deleteContentCloudinary(files);
     const errorMessage = errors.array();
     return clientErrorResponse(res, errorMessage);
   }
@@ -49,7 +40,7 @@ export const digitalContentRequestMiddleware = async (
 
     const resultGuide = await guideService.execute(guide);
     if (resultGuide instanceof Error) {
-      deleteImg(files);
+      deleteContentCloudinary(files);
       return clientErrorResponse(res, resultGuide);
     }
   }
@@ -60,9 +51,10 @@ export const digitalContentRequestMiddleware = async (
 
     const resultCategory = await categoryService.execute(category);
     if (resultCategory instanceof Error) {
-      deleteImg(files);
+      deleteContentCloudinary(files);
       return clientErrorResponse(res, resultCategory);
     }
   }
+
   next();
 };

@@ -1,3 +1,4 @@
+import { DigitalContentEntity } from "../../entities/DigitalContentEntity";
 import { InMemoryDigitalContentRepository } from "../../helpers/inMemoryRepositories/InMemoryDigitalContentRepository";
 import { DeleteDigitalContentService } from "./DeleteDigitalContentService";
 
@@ -17,10 +18,10 @@ describe("DeleteDigitalContentService", () => {
     expect(result).toBeInstanceOf(Error);
   });
 
-  it("Should return 1 and delete a content", async () => {
-    const result = await contentService.execute("0");
+  it("Should delete and return digital content deleted", async () => {
+    const result = (await contentService.execute("0")) as DigitalContentEntity;
 
-    expect(result).toEqual(1);
+    expect(result._id).toBe("0");
     expect(repository.database.length).toEqual(0);
   });
 });

@@ -123,7 +123,6 @@ describe("description", () => {
 
     it("Should return a DigitalContent by ID", async () => {
       const result = await repository.findById("0");
-      console.log(repository.database);
       expect(result).not.toBeNull();
       expect(result?._id).toBe("0");
       expect(result?.title).toBe("Título do conteúdo digital 0");
