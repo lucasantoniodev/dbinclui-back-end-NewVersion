@@ -1,7 +1,6 @@
-import { ObjectId } from "mongoose";
 
 export interface GuideEntity {
-  _id?: ObjectId | string;
+  _id?: string;
   title: string;
   content: string;
 }

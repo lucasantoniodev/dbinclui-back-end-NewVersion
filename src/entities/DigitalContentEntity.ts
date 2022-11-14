@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongoose';
 import { CategoryEntity } from './CategoryEntity.js';
 import { GuideEntity } from './GuideEntity.js';
 
@@ -8,7 +7,7 @@ export interface FileProps {
 }
 
 export interface DigitalContentEntity {
-    _id?: ObjectId;
+    _id?: string;
     title: string;
     shortDescription: string;
     category?: CategoryEntity;
