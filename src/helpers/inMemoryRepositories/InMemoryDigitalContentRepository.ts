@@ -53,7 +53,6 @@ export class InMemoryDigitalContentRepository
 
   async loadData(amount: number) {
     for (let i = 0; i < amount; i++) {
-      console.log(this.database.length);
       const contentExample: DigitalContentEntity = {
         _id: String(this.database.length),
         title: `Título do conteúdo digital ${this.database.length}`,
