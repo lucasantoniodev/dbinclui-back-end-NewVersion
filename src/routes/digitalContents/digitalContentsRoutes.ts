@@ -11,6 +11,7 @@ import { deleteContentRequestMiddleware } from "../../middlewares/digitalContent
 import { deleteDigitalContentController } from "../../controllers/digitalContents/DeleteDigitaContentController.js";
 import { getAllCategoriesController } from "../../controllers/categories/GetAllCategoriesController.js";
 import { getAllDigitalContentsController } from "../../controllers/digitalContents/GetAllDigitalContentsController.js";
+import { getByIdDigitalContentController } from "../../controllers/digitalContents/GetByIdDigitalContentController.js";
 
 const digitalContentsRouter = Router();
 
@@ -24,6 +25,13 @@ digitalContentsRouter.post(
 );
 
 digitalContentsRouter.get("/", getAllDigitalContentsController.handler);
+
+digitalContentsRouter.get(
+  "/:id",
+  digitalContentRequestValidator("get"),
+  deleteContentRequestMiddleware,
+  getByIdDigitalContentController.handler
+);
 
 digitalContentsRouter.delete(
   "/:id",
