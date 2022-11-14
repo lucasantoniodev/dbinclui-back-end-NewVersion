@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { FileProps } from "../../entities/DigitalContentEntity.js";
 import { DigitalContentMongoRepository } from "../../repositories/mongoRepositories/DigitalContentMongoRepository.js";
 import {
   serverErrorResponse,
@@ -10,13 +11,19 @@ class CreateDigitalContentController {
   async handler(req: Request, res: Response) {
     try {
       const body = req.body;
+      const files: FileProps[] = req.files as FileProps[];
 
       const digitalContentRepository = new DigitalContentMongoRepository();
       const digitalContentService = new CreateDigitalContentService(
         digitalContentRepository
       );
 
-      const result = await digitalContentService.execute(body);
+      const result = await digitalContentService.execute({
+        ...body,
+        filePaths: files,
+      });
+
+      console.log(result);
 
       return sucessfulResponse(res, result);
     } catch (error) {
@@ -24,3 +31,6 @@ class CreateDigitalContentController {
     }
   }
 }
+
+export const createDigitalContentController =
+  new CreateDigitalContentController();

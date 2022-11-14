@@ -1,6 +1,8 @@
 import { body, param } from "express-validator";
 
-export const digitalContentRequestValidator = (method: "post" | "put" | "get" | "delete") => {
+export const digitalContentRequestValidator = (
+  method: "post" | "put" | "get" | "delete"
+) => {
   if (method === "post") {
     return [
       body("title")
@@ -16,6 +18,18 @@ export const digitalContentRequestValidator = (method: "post" | "put" | "get" | 
         .withMessage("A descrição do conteúdo não pode está vazio")
         .isString()
         .withMessage("O formato deve ser uma string"),
+
+      body("guide")
+        .notEmpty()
+        .withMessage("O ID do guia não pode está vazio")
+        .isMongoId()
+        .withMessage("Formado do ID inválido"),
+
+        body("category")
+        .notEmpty()
+        .withMessage("O ID da categoria não pode está vazio")
+        .isMongoId()
+        .withMessage("Formado do ID inválido"),
     ];
   }
 
