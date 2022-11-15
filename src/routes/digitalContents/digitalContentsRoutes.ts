@@ -2,16 +2,14 @@ import { Router } from "express";
 import { uploadCloudinary } from "../../configs/multer/multerCloudinaryStorageConfig.js";
 import { createDigitalContentController } from "../../controllers/digitalContents/CreateDigitalContentController.js";
 import { bodyRequestMiddleware } from "../../middlewares/digitalContents/bodyRequestMiddleware.js";
-import { digitalContentRequestMiddleware } from "../../middlewares/digitalContents/digitalContentRequestMiddleware.js";
-import { digitalContentRequestValidator } from "../../middlewares/digitalContents/digitalContentRequestValidator.js";
-import { v2 as cloudinary } from "cloudinary";
-import { Cloudinary } from "../../database/Cloudinary.js";
-import { deleteCategoryController } from "../../controllers/categories/DeleteCategoryController.js";
-import { deleteContentRequestMiddleware } from "../../middlewares/digitalContents/deleteContentRequestMiddleware.js";
+import { createDigitalContentRequestMiddleware } from "../../middlewares/digitalContents/createDigitalContentRequestMiddleware.js";
+import { digitalContentRequestValidator } from "../../middlewares/digitalContents/validators/digitalContentRequestValidator.js";
+import { deleteContentRequestMiddleware } from "../../middlewares/digitalContents/deleteDigitalContentRequestMiddleware.js";
 import { deleteDigitalContentController } from "../../controllers/digitalContents/DeleteDigitaContentController.js";
-import { getAllCategoriesController } from "../../controllers/categories/GetAllCategoriesController.js";
 import { getAllDigitalContentsController } from "../../controllers/digitalContents/GetAllDigitalContentsController.js";
 import { getByIdDigitalContentController } from "../../controllers/digitalContents/GetByIdDigitalContentController.js";
+import { updateDigitalContentController } from "../../controllers/digitalContents/UpdateDigitalContentController.js";
+import { updateDigitalContentMiddleware } from "../../middlewares/digitalContents/updateDigitalContentMiddleware.js";
 
 const digitalContentsRouter = Router();
 
@@ -20,8 +18,15 @@ digitalContentsRouter.post(
   uploadCloudinary.array("files"),
   bodyRequestMiddleware,
   digitalContentRequestValidator("post"),
-  digitalContentRequestMiddleware,
+  createDigitalContentRequestMiddleware,
   createDigitalContentController.handler
+);
+
+digitalContentsRouter.put(
+  "/:id",
+  digitalContentRequestValidator("put"),
+  updateDigitalContentMiddleware,
+  updateDigitalContentController.handler
 );
 
 digitalContentsRouter.get("/", getAllDigitalContentsController.handler);

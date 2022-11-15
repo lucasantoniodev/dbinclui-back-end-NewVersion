@@ -25,7 +25,7 @@ export const digitalContentRequestValidator = (
         .isMongoId()
         .withMessage("Formado do ID inválido"),
 
-        body("category")
+      body("category")
         .notEmpty()
         .withMessage("O ID da categoria não pode está vazio")
         .isMongoId()
@@ -35,11 +35,19 @@ export const digitalContentRequestValidator = (
 
   if (method === "put" || method === "get" || method === "delete") {
     return [
+      body("guide")
+        .optional()
+        .isMongoId()
+        .withMessage("Formato do ID do guia inválido"),
+      body("category")
+        .optional()
+        .isMongoId()
+        .withMessage("Formato do ID da categoria inválido"),
       param("id")
         .notEmpty()
-        .withMessage("Um ID do conteúdo é necessário para esse método")
+        .withMessage("ID do conteúdo digital é necessário para esse método")
         .isMongoId()
-        .withMessage("Formato de ID inválido"),
+        .withMessage("Formato do ID do conteúdo inválido"),
     ];
   }
 

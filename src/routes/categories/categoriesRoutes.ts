@@ -6,7 +6,7 @@ import { getByGuideIdCategoryController } from "../../controllers/categories/Get
 import { getByIdCategoryController } from "../../controllers/categories/GetByIdCategoryController.js";
 import { updateCategoryController } from "../../controllers/categories/UpdateCategoryController.js";
 import { categoryRequestMiddleware } from "../../middlewares/categories/categoryRequestMiddleware.js";
-import { categoryRequestValidator } from "../../middlewares/categories/categoryRequestValidator.js";
+import { categoryRequestValidator } from "../../middlewares/categories/validators/categoryRequestValidator.js";
 
 const categoriesRouter = Router();
 

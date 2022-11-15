@@ -17,7 +17,7 @@ export interface FileRequest {
   filename: string;
 }
 
-export const digitalContentRequestMiddleware = async (
+export const createDigitalContentRequestMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -34,26 +34,22 @@ export const digitalContentRequestMiddleware = async (
 
   const { guide, category } = req.body;
 
-  if (req.method === "POST" || (req.method === "PUT" && guide)) {
-    const guideRepository = new GuideMongoRepository();
-    const guideService = new GetByIdGuideService(guideRepository);
+  const guideRepository = new GuideMongoRepository();
+  const guideService = new GetByIdGuideService(guideRepository);
 
-    const resultGuide = await guideService.execute(guide);
-    if (resultGuide instanceof Error) {
-      deleteContentCloudinary(files);
-      return clientErrorResponse(res, resultGuide);
-    }
+  const resultGuide = await guideService.execute(guide);
+  if (resultGuide instanceof Error) {
+    deleteContentCloudinary(files);
+    return clientErrorResponse(res, resultGuide);
   }
 
-  if (req.method === "POST" || (req.method === "PUT" && category)) {
-    const categoryRepository = new CategoryMongoRepository();
-    const categoryService = new GetByIdCategoryService(categoryRepository);
+  const categoryRepository = new CategoryMongoRepository();
+  const categoryService = new GetByIdCategoryService(categoryRepository);
 
-    const resultCategory = await categoryService.execute(category);
-    if (resultCategory instanceof Error) {
-      deleteContentCloudinary(files);
-      return clientErrorResponse(res, resultCategory);
-    }
+  const resultCategory = await categoryService.execute(category);
+  if (resultCategory instanceof Error) {
+    deleteContentCloudinary(files);
+    return clientErrorResponse(res, resultCategory);
   }
 
   next();

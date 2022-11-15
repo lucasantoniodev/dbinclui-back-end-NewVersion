@@ -5,7 +5,7 @@ import { getAllGuidesController } from "../../controllers/guides/GetAllGuidesCon
 import { getByIdGuideController } from "../../controllers/guides/GetByIdGuideController.js";
 import { updateGuideController } from "../../controllers/guides/UpdateGuideController.js";
 import { guideRequestMiddleware } from "../../middlewares/guides/guideRequestMiddleware.js";
-import { guideRequestValidator } from "../../middlewares/guides/guideRequestValidator.js";
+import { guideRequestValidator } from "../../middlewares/guides/validators/guideRequestValidator.js";
 
 const guidesRouter = Router();
 

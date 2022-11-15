@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 export const bodyRequestMiddleware = async (
   req: Request,
-  res: Response,
+  _: Response,
   next: NextFunction
 ) => {
   try {
