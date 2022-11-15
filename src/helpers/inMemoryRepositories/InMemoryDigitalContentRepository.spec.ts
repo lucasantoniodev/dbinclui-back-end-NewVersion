@@ -80,7 +80,7 @@ describe("description", () => {
       expect(result).toEqual(0);
     });
 
-    it("Should update and return a updateCount", async () => {
+    it("Should update and return 1 like an updateCount", async () => {
       const contentExample = {
         _id: "0",
         title: `Título do conteúdo digital ${repository.database.length}`,
@@ -114,6 +114,45 @@ describe("description", () => {
     });
   });
 
+  describe("Update Media by public_id", () => {
+    it("Should return 0 if DigitalContent public_id not found", async () => {
+      const result = await repository.updateMediaByPublicId(
+        "indaskdjal",
+        "Novo Path",
+        "Novo Filename"
+      );
+
+      expect(result).toEqual(0);
+    });
+
+    it("Should update and return 1 like an updateCount", async () => {
+      const result = await repository.updateMediaByPublicId(
+        "arquivo0",
+        "Novo path",
+        "Novo FileName"
+      );
+
+      expect(result).toEqual(1);
+      expect(repository.database[0].filePaths[0].filename).toBe(
+        "Novo FileName"
+      );
+    });
+  });
+
+  describe("findMediaByPublicId", () => {
+    it("Should return null if public_id not found", async () => {
+      const result = await repository.findMediaByPublicId("sadasd");
+
+      expect(result).toBeNull();
+    });
+
+    it("Should return a digital content by public_id", async () => {
+      const result = await repository.findMediaByPublicId("arquivo1");
+
+      expect(result).not.toBeNull();
+      expect(result?._id).toBe("1")
+    });
+  });
   describe("findById", () => {
     it("Should be null if ID not found", async () => {
       const result = await repository.findById("123");

@@ -27,9 +27,7 @@ export class InMemoryDigitalContentRepository
   }
 
   async findById(id: string): Promise<DigitalContentEntity | null> {
-    const result = this.database.find(
-      (guide) => (guide._id as unknown as string) === id
-    );
+    const result = this.database.find((guide) => (guide._id as string) === id);
     return result ?? null;
   }
 
@@ -86,5 +84,46 @@ export class InMemoryDigitalContentRepository
 
   async clear() {
     this.database = [];
+  }
+
+  async updateMediaByPublicId(
+    public_id: string,
+    newPath: string,
+    newFilename: string
+  ): Promise<number> {
+    let indexPath = 1234567489;
+    const content = this.database.find((guide) => {
+      return guide.filePaths.find((paths, index) => {
+        if (paths.filename === public_id) {
+          indexPath = index;
+        }
+        return paths.filename === public_id;
+      });
+    });
+
+    if (!content) {
+      return 0;
+    }
+
+    const index = this.database.indexOf(content);
+
+    content.filePaths[indexPath].filename = newFilename;
+    content.filePaths[indexPath].path = newPath;
+
+    this.database[index] = content;
+
+    return 1;
+  }
+
+  async findMediaByPublicId(
+    public_id: string
+  ): Promise<DigitalContentEntity | null> {
+    const content = this.database.find((guide) => {
+      return guide.filePaths.find((paths) => {
+        return paths.filename === public_id;
+      });
+    });
+
+    return content ?? null;
   }
 }

@@ -23,8 +23,6 @@ class CreateDigitalContentController {
         filePaths: files,
       });
 
-      console.log(result);
-
       return sucessfulResponse(res, result);
     } catch (error) {
       return serverErrorResponse(res, error as Error);

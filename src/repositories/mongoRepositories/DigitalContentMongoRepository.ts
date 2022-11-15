@@ -18,6 +18,30 @@ export class DigitalContentMongoRepository implements DigitalContentRepository {
     return this.database.findById(id);
   }
 
+  async findMediaByPublicId(id: string): Promise<DigitalContentEntity | null> {
+    return this.database.findOne({ "filePaths.filename": id });
+  }
+
+  async updateMediaByPublicId(
+    public_id: string,
+    newPath: string,
+    newFilename: string
+  ) {
+    const result = await this.database.updateOne(
+      { "filePaths.filename": public_id },
+      {
+        $set: {
+          "filePaths.$": {
+            // _id: id,
+            path: newPath,
+            filename: newFilename,
+          },
+        },
+      }
+    );
+    return result.modifiedCount;
+  }
+
   async findAll(): Promise<DigitalContentEntity[]> {
     return this.database.find();
   }

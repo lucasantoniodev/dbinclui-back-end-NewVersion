@@ -3,7 +3,7 @@ import multer from "multer";
 import { Cloudinary } from "../../database/Cloudinary.js";
 
 const database = new Cloudinary();
-database.initializeConfig();
+
 const storage = database.storage();
 
 const multerCloudinaryConfig: multer.Options = {

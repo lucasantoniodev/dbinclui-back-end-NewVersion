@@ -10,6 +10,7 @@ import { getAllDigitalContentsController } from "../../controllers/digitalConten
 import { getByIdDigitalContentController } from "../../controllers/digitalContents/GetByIdDigitalContentController.js";
 import { updateDigitalContentController } from "../../controllers/digitalContents/UpdateDigitalContentController.js";
 import { updateDigitalContentMiddleware } from "../../middlewares/digitalContents/updateDigitalContentMiddleware.js";
+import { updateMediaDigitalContentController } from "../../controllers/digitalContents/UpdateMediaDigitalContentController.js";
 
 const digitalContentsRouter = Router();
 
@@ -20,6 +21,12 @@ digitalContentsRouter.post(
   digitalContentRequestValidator("post"),
   createDigitalContentRequestMiddleware,
   createDigitalContentController.handler
+);
+
+digitalContentsRouter.patch(
+  "/media/:id",
+  uploadCloudinary.array("files"),
+  updateMediaDigitalContentController.handler
 );
 
 digitalContentsRouter.put(
