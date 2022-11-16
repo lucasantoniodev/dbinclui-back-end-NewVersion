@@ -126,4 +126,10 @@ export class InMemoryDigitalContentRepository
 
     return content ?? null;
   }
+
+  async findByCategoryId(id: string): Promise<DigitalContentEntity[]> {
+    const content = this.database.filter((guide) => guide.category._id === id);
+
+    return content ?? [];
+  }
 }

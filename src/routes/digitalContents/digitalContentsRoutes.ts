@@ -11,6 +11,8 @@ import { getByIdDigitalContentController } from "../../controllers/digitalConten
 import { updateDigitalContentController } from "../../controllers/digitalContents/UpdateDigitalContentController.js";
 import { updateDigitalContentMiddleware } from "../../middlewares/digitalContents/updateDigitalContentMiddleware.js";
 import { updateMediaDigitalContentController } from "../../controllers/digitalContents/UpdateMediaDigitalContentController.js";
+import { DigitalContentMongoRepository } from "../../repositories/mongoRepositories/DigitalContentMongoRepository.js";
+import { getByCategoryIdDigitalContentController } from "../../controllers/digitalContents/GetByCategoryIdDigitalContentController.js";
 
 const digitalContentsRouter = Router();
 
@@ -43,6 +45,11 @@ digitalContentsRouter.get(
   digitalContentRequestValidator("get"),
   deleteContentRequestMiddleware,
   getByIdDigitalContentController.handler
+);
+
+digitalContentsRouter.get(
+  "/category/:id",
+  getByCategoryIdDigitalContentController.handler
 );
 
 digitalContentsRouter.delete(

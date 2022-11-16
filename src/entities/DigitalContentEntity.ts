@@ -10,7 +10,7 @@ export interface DigitalContentEntity {
     _id?: string;
     title: string;
     shortDescription: string;
-    category?: CategoryEntity;
+    category: CategoryEntity;
     guide: GuideEntity;
     filePaths: FileProps[];
 }

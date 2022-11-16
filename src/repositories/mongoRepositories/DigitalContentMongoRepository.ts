@@ -1,5 +1,7 @@
 import { DigitalContentEntity } from "../../entities/DigitalContentEntity.js";
+import { CategoryModel } from "../../models/CategoryModel.js";
 import { DigitalContentModel } from "../../models/DigitalContentModel.js";
+import { GuideModel } from "../../models/GuideModel.js";
 import { DigitalContentRepository } from "../DigitalContentRepository.js";
 
 export class DigitalContentMongoRepository implements DigitalContentRepository {
@@ -16,6 +18,24 @@ export class DigitalContentMongoRepository implements DigitalContentRepository {
 
   async findById(id: string): Promise<DigitalContentEntity | null> {
     return this.database.findById(id);
+  }
+
+  async findByCategoryId(id: string): Promise<DigitalContentEntity[]> {
+    return this.database
+      .find()
+      .where("category", id)
+      .populate([
+        {
+          path: "category",
+          model: CategoryModel,
+          strictPopulate: true,
+        },
+        {
+          path: "guide",
+          model: GuideModel,
+          strictPopulate: true,
+        },
+      ]);
   }
 
   async findMediaByPublicId(id: string): Promise<DigitalContentEntity | null> {
